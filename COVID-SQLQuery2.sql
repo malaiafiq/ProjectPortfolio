@@ -8,27 +8,39 @@ ORDER BY 3,4
 --ORDER BY 3,4
 
 -- Looking at total cases vs total deaths
-SELECT location, date, total_cases, total_deaths, (total_deaths/total_cases)*100 as DeathPercentage
+SELECT location,
+	date,
+	total_cases,
+	total_deaths,
+	(total_deaths/total_cases)*100 as DeathPercentage
 FROM ProjectPortfolio..covidDeath$
 WHERE location like '%kingdom%'
 order by 1,2
 
 --looking at total cases vs population
 --shows what % of population got covid
-SELECT location, date, population, total_cases, (total_cases/population)*100 as PercentPouplationInfected
+SELECT location,
+	date,
+	population,
+	total_cases,
+	(total_cases/population)*100 as PercentPouplationInfected
 FROM ProjectPortfolio..covidDeath$
 WHERE location like '%kingdom%'
 order by 1,2
 
 --Looking at countries with highest infection rate compared to population
-SELECT location, population, MAX(total_cases) as HighestInfectionCount, MAX((total_cases/population)*100) as PercentPouplationInfected
+SELECT location,
+	population,
+	MAX(total_cases) as HighestInfectionCount,
+	MAX((total_cases/population)*100) as PercentPouplationInfected
 FROM ProjectPortfolio..covidDeath$
 --WHERE location like '%kingdom%'
 GROUP BY location,population
 order by PercentPouplationInfected DESC
 
 --showing countries with highest death count per population
-SELECT location, MAX(cast(total_deaths as int)) AS  TotalDeathCount
+SELECT location,
+	MAX(cast(total_deaths as int)) AS  TotalDeathCount
 FROM ProjectPortfolio..covidDeath$
 --WHERE location like '%kingdom%'
 WHERE continent IS NOT NULL
@@ -37,7 +49,8 @@ order by TotalDeathCount DESC
 
 
 -- BREAK DOWN BY CONTINENT
-SELECT continent, MAX(cast(total_deaths as int)) AS  TotalDeathCount
+SELECT continent,
+	MAX(cast(total_deaths as int)) AS  TotalDeathCount
 FROM ProjectPortfolio..covidDeath$
 --WHERE location like '%kingdom%'
 WHERE continent IS NOT NULL
@@ -45,7 +58,9 @@ GROUP BY continent
 order by TotalDeathCount DESC
 
 -- GLOBAL NUMBERS
-SELECT SUM(new_cases) as total_cases, SUM(CAST(new_deaths AS INT)) as total_death, SUM(CAST(new_deaths AS INT))/SUM(new_cases)*100 AS DeathPercentage
+SELECT SUM(new_cases) as total_cases,
+	SUM(CAST(new_deaths AS INT)) as total_death,
+	SUM(CAST(new_deaths AS INT))/SUM(new_cases)*100 AS DeathPercentage
 FROM ProjectPortfolio..covidDeath$
 --WHERE location like '%kingdom%'
 WHERE CONTINENT IS NOT NULL
