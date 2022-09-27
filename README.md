@@ -8,6 +8,8 @@ Write a script in SQL to import and clean the data
 Explore the data using queries
 Visualising the data; connecting from SQL Server to PowerBI
 
+![alt text](https://github.com/malaiafiq/ProjectPortfolio/blob/main/Covid_Dashboard.png)
+
 ## Data Import
 This was proving troubling but after investigation determined the issue was Excel would save .csv as ASCII when my SQL analysis tool was expecting UTF-8. Saving the csv in Excel in UTF-8 remedied problems.
 
